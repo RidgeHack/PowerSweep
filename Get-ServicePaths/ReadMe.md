@@ -99,6 +99,27 @@ Import-Module .\UnquotedServicePaths.psm1
 Get-Command -Module UnquotedServicePaths
 ```
 
+### Usage
+
+```powershell
+# Import the module
+Import-Module .\UnquotedServicePaths.psm1
+
+# Show all services with vulnerability analysis
+Get-AllServices
+
+# Test write access on vulnerable paths
+Get-WriteAccess  
+
+# Basic vulnerability scan
+Get-UnquotedServicePaths
+
+# Silent modes for automation
+Get-WriteAccess -Quiet
+Get-AllServices -Quiets
+```
+
+
 ### Module Functions
 
 #### `Get-AllServices`
