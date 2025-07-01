@@ -17,6 +17,9 @@ ServicePermissionAudit identifies Windows services where the current user has el
 - **Automation Friendly** - Silent mode and non-interactive operation
 - **Security Focus** - Designed for penetration testing and red team assessments
 
+
+# Get-VulnerableService .psm1 module 
+
 ## 📋 Installation
 
 ```powershell
@@ -62,70 +65,57 @@ Invoke-ServicePermissionAudit [-ShowOnlyRisks] [-ShowOnlyFileSystemRisks] [-Test
 - `-TestStartStop` - Test start/stop permissions (no confirmation required)
 - `-Quiet` - Suppress banner and progress messages
 
-### `Get-VulnerableServices`
+# Get-VulnerableService .ps1 script
 
-Quick function for identifying file system vulnerabilities.
+## Quick Start
 
 ```powershell
-Get-VulnerableServices [-TestStartStop] [-Quiet]
+# Download and run
+.\Get-VulnerableService.ps1
+
+# Show help
+.\Get-VulnerableService.ps1 -Help
+
+# Quick vulnerability check
+.\Get-VulnerableService.ps1 -VulnerableServicesOnly
+
+# Test high-risk services
+.\Get-VulnerableService.ps1 -ShowAll -TestStartStop
 ```
 
-## 📈 Output Examples
+## Usage
 
-### Basic Audit Output
-```
-[*] ServicePermissionAudit v1.0
-[*] Current User: pentester
-[*] Domain: TARGET
-[*] Timestamp: 2024-01-15 14:30:25
+### Basic Commands
 
-[*] Scanning 313 services...
+```powershell
+# Complete system audit (all services)
+.\Get-VulnerableService.ps1
 
-[+] AUDIT SUMMARY
-    Total Services: 313
-    Critical Risk: 2
-    High Risk: 1
-    Medium Risk: 3
-    Read Only: 305
-    No Access: 2
+# All services + detailed analysis for Critical/High risk only  
+.\Get-VulnerableService.ps1 -ShowAll
 
-ServiceName      : VulnerableService
-DisplayName      : Vulnerable Application Service
-Status           : Running
-RiskLevel        : Critical
-ExecutablePath   : C:\Program Files\VulnApp\service.exe
-LogOnAs          : LocalSystem
-StartMode        : Auto
+# Critical file system risks only
+.\Get-VulnerableService.ps1 -ShowOnlyFileSystemRisks
 
-ServiceName      : ConfigurableService
-DisplayName      : User Configurable Service
-Status           : Stopped
-RiskLevel        : High
-ExecutablePath   : C:\Windows\System32\example.exe
-LogOnAs          : LocalService
-StartMode        : Manual
+# Quick vulnerable services check
+.\Get-VulnerableService.ps1 -VulnerableServicesOnly
 
-[!] SECURITY FINDINGS
-    CRITICAL: 2 services have file system write access
-    HIGH: 1 services allow configuration changes
-    MEDIUM: 3 services allow start operations
+# Silent mode for automation
+.\Get-VulnerableService.ps1 -VulnerableServicesOnly -Quiet
 ```
 
-### Detailed Risk Analysis Output
+### Advanced Testing
+
+```powershell
+# Test start/stop permissions (WARNING: May affect services)
+.\Get-VulnerableService.ps1 -ShowAll -TestStartStop
+
+# File system risks with start/stop testing
+.\Get-VulnerableService.ps1 -VulnerableServicesOnly -TestStartStop
 ```
-ServiceName      : VulnerableService
-DisplayName      : Vulnerable Application Service
-Status           : Running
-RiskLevel        : Critical
-ExecutablePath   : C:\Program Files\VulnApp\service.exe
-LogOnAs          : LocalSystem
-StartMode        : Auto
-CanChangeConfig  : True
-CanWriteToExe    : False
-CanWriteToDir    : True
-CanReplaceExe    : True
-StartStopTested  : False
-```
+
+
+## 📈 Output Example
 
 ### Start/Stop Testing Output
 ```
@@ -164,100 +154,6 @@ StartStopTested  : True
 | **ReadOnly** | Can only view service information | **LOW RISK** - Information disclosure only |
 | **NoAccess** | Cannot interact with service | **NO RISK** - Service properly secured |
 
-## 🔧 Parsing and Integration
-
-### Extracting Critical Services
-```powershell
-# Get all Critical risk services
-Invoke-ServicePermissionAudit -ShowOnlyFileSystemRisks -Quiet | 
-    Select-String "ServiceName" | 
-    ForEach-Object { ($_ -split ":")[1].Trim() }
-```
-
-### CSV Export
-```powershell
-# Convert output to structured data
-$output = Invoke-ServicePermissionAudit -ShowOnlyRisks -Quiet
-# Parse and export to CSV (custom parsing required)
-```
-
-### Integration with Other Tools
-```powershell
-# Silent mode for scripting
-$results = Invoke-ServicePermissionAudit -ShowOnlyFileSystemRisks -Quiet
-
-# Process results with other security tools
-$results | Out-File "service_vulns.txt"
-```
-
-## 🛡️ Security Use Cases
-
-### Penetration Testing
-```powershell
-# Quick vulnerability assessment
-Get-VulnerableServices -Quiet
-
-# Comprehensive privilege escalation check
-Invoke-ServicePermissionAudit -ShowOnlyRisks -TestStartStop -Quiet
-```
-
-### Red Team Operations
-```powershell
-# Silent enumeration
-Invoke-ServicePermissionAudit -ShowOnlyFileSystemRisks -Quiet
-
-# Automated service abuse testing
-Get-VulnerableServices -TestStartStop -Quiet
-```
-
-### Blue Team Assessment
-```powershell
-# Full environment audit
-Invoke-ServicePermissionAudit
-
-# Focus on immediate threats
-Invoke-ServicePermissionAudit -ShowOnlyFileSystemRisks
-```
-
-## ⚠️ Operational Security
-
-### TestStartStop Considerations
-- **Automated execution** - No user confirmation required
-- **Service disruption** - May temporarily affect running services
-- **Stealth concerns** - Service stop/start events are logged
-- **Restoration attempts** - Module tries to restore original service state
-
-### Detection Considerations
-- Service configuration queries are normal administrative activity
-- File system access tests may trigger security monitoring
-- Start/stop operations generate Windows Event Log entries
-- Consider using `-Quiet` mode to reduce output verbosity
-
-## 🔄 Common Workflows
-
-### Initial Assessment
-```powershell
-# 1. Quick critical vulnerability check
-Get-VulnerableServices
-
-# 2. Comprehensive risk assessment
-Invoke-ServicePermissionAudit -ShowOnlyRisks
-
-# 3. Full service inventory (if needed)
-Invoke-ServicePermissionAudit -Quiet > full_audit.txt
-```
-
-### Privilege Escalation Research
-```powershell
-# 1. Find file system vulnerabilities
-Invoke-ServicePermissionAudit -ShowOnlyFileSystemRisks
-
-# 2. Test service control capabilities
-Get-VulnerableServices -TestStartStop
-
-# 3. Document findings
-Invoke-ServicePermissionAudit -ShowOnlyRisks -Quiet > privesc_vectors.txt
-```
 
 ## 📝 Output Field Reference
 
