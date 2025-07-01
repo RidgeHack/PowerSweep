@@ -46,19 +46,19 @@ If you can write to `C:\` or `C:\Program Files\`, you can place a malicious exec
 
 ```powershell
 # Basic vulnerability scan
-.\UnquotedServicePaths.ps1
+.\Get-ServicePaths.ps1
 
 # Test actual write permissions
-.\UnquotedServicePaths.ps1 -TestWriteAccess
+.\Get-ServicePaths.ps1 -TestWriteAccess
 
 # Show all services including non-vulnerable
-.\UnquotedServicePaths.ps1 -ShowAllServices
+.\Get-ServicePaths.ps1 -ShowAllServices
 
 # Silent mode for automation
-.\UnquotedServicePaths.ps1 -Quiet
+.\Get-ServicePaths.ps1 -Quiet
 
 # Display help
-.\UnquotedServicePaths.ps1 -Help
+.\Get-ServicePaths.ps1 -Help
 ```
 
 ### Script Parameters
@@ -74,13 +74,13 @@ If you can write to `C:\` or `C:\Program Files\`, you can place a malicious exec
 
 ```powershell
 # Find vulnerabilities and test exploitability
-.\UnquotedServicePaths.ps1 -TestWriteAccess
+.\Get-ServicePaths.ps1 -TestWriteAccess
 
 # Complete service inventory with vulnerability status
-.\UnquotedServicePaths.ps1 -ShowAllServices
+.\Get-ServicePaths.ps1 -ShowAllServices
 
 # Export results for analysis
-.\UnquotedServicePaths.ps1 -Quiet > unquoted_vulns.txt
+.\Get-ServicePaths.ps1 -Quiet > unquoted_vulns.txt
 ```
 
 ---
@@ -93,7 +93,7 @@ The module version for importing and reusing functions.
 
 ```powershell
 # Import the module
-Import-Module .\UnquotedServicePaths.psm1
+Import-Module .\Get-ServicePaths.psm1
 
 # Verify installation
 Get-Command -Module UnquotedServicePaths
@@ -103,7 +103,7 @@ Get-Command -Module UnquotedServicePaths
 
 ```powershell
 # Import the module
-Import-Module .\UnquotedServicePaths.psm1
+Import-Module .\Get-ServicePaths.psm1
 
 # Show all services with vulnerability analysis
 Get-AllServices
@@ -159,14 +159,14 @@ Get-UnquotedServicePaths -Quiet
 
 ```powershell
 # Import and run comprehensive scan
-Import-Module .\UnquotedServicePaths.psm1
+Import-Module .\Get-ServicePaths.psm1
 Get-WriteAccess
 
 # Get help for specific function
 Get-Help Get-WriteAccess -Full
 
 # Automation workflow
-Import-Module .\UnquotedServicePaths.psm1
+Import-Module .\Get-ServicePaths.psm1
 $vulns = Get-WriteAccess -Quiet
 $vulns | Where-Object { $_.WritablePaths -ne "None" }
 ```
