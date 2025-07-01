@@ -116,7 +116,7 @@ Get-UnquotedServicePaths
 
 # Silent modes for automation
 Get-WriteAccess -Quiet
-Get-AllServices -Quiets
+Get-AllServices -Quiet
 ```
 
 
