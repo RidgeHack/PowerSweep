@@ -25,8 +25,8 @@ Whether you're performing a one-time audit or building a continuous monitoring s
 
 | Tool Name             | Description                                                              |
 |----------------------|---------------------------------------------------------------------------|
-| `Get-VulnERABLEServices.ps1` | Enumerates services with  weak permissions, etc.                  |
-| `Get-ServicePaths.ps1`   | Enumerates unquoted service paths.                                    |
+| `Get-VulnerableServices.ps1` | Enumerates services with  weak permissions, etc.                  |
+| `Get-ServicePaths.ps1`       | Enumerates unquoted service paths.                                |
 
 
 *More tools will be added regularly. Contributions welcome!*
