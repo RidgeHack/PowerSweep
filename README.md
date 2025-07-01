@@ -25,12 +25,9 @@ Whether you're performing a one-time audit or building a continuous monitoring s
 
 | Tool Name             | Description                                                              |
 |----------------------|---------------------------------------------------------------------------|
-| `Get-VulnServices.ps1` | Enumerates services with unquoted paths, weak permissions, etc.          |
-| `Invoke-HostAudit.ps1` | Runs a general security baseline check on the system                     |
-| `Check-AdminShares.ps1`| Identifies exposed admin shares and access risks                         |
-| `Enum-AutoRuns.ps1`    | Lists auto-start programs and services that may be abused                |
-| `Find-WeakPerms.ps1`   | Searches for weak file or folder permissions on sensitive paths          |
-| `Audit-LocalUsers.ps1` | Reviews local accounts, groups, and misconfigured privileges             |
+| `Get-VulnERABLEServices.ps1` | Enumerates services with  weak permissions, etc.                  |
+| `Get-ServicePaths.ps1`   | Enumerates unquoted service paths.                                    |
+
 
 *More tools will be added regularly. Contributions welcome!*
 
