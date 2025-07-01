@@ -39,7 +39,7 @@ If you can write to `C:\` or `C:\Program Files\`, you can place a malicious exec
 
 ```powershell
 # Download and run directly
-.\UnquotedServicePaths.ps1
+.\Get-ServicePaths.ps1
 ```
 
 ### Usage
