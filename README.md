@@ -1,5 +1,5 @@
 # PowerSweep
-Enumeration tools for both Blue and Red teams any anyone inbetween. 
+Enumeration tools for both Blue and Red teams and any anyone in-between. 
 
 # 🛡️ PowerSweep Host Audit Toolkit
 
