@@ -101,3 +101,6 @@ ProcessName       : C:\Windows\System32\net.exe
 ParentProcessName : C:\Windows\System32\cmd.exe
 CommandLine       : net  user NewUser P@ssw0rd123! /add
 ```
+
+# Created by The-Viper-One 
+Ref: https://github.com/The-Viper-One/Invoke-FindEventCreds
